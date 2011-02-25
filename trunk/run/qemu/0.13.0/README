@@ -1,0 +1,13 @@
+Kernel and small root FS for use with qemu ARM emulation.
+
+The kernel config is included in the kernel.  It can be extracted from the
+image with linux/scripts/extract-ikconfig or accessed as /proc/config.gz
+on a running kenel.
+
+The root FS should be loaded as an initrd.  eg:
+
+./qemu-system-arm -kernel zImage.integrator -initrd arm_root.img
+
+Or without graphical output:
+
+./qemu-system-arm -kernel zImage.integrator -initrd arm_root.img -nographic -append "console=ttyAMA0"
