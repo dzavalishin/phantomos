@@ -1,3 +1,5 @@
+#include "libdev/kmi.h"
+
 #define CP_IDFIELD 0xCB000000
 
 #define SERIAL_BASE 0x16000000
@@ -15,7 +17,7 @@ void putc (char c)
     *(volatile unsigned long*)SERIAL_BASE = c;
 }
  
-void puts (const char * str)
+void puts(const char * str)
 {
     while (*str)
     {
@@ -123,6 +125,17 @@ int main (void)
     int i;
     for( i = 0; i < 10000; i++ )
         sp[i] = (i&4) ? 0xFF0000 : 0x00FF;
+
+
+    kmi_keyboard_init( 0x18000000, 3 );
+    kmi_rx_irq_enable( 0x18000000 );
+
+    while(1)
+    {
+        struct keyboard_state state;
+        char c = kmi_keyboard_read( 0x18000000, &state );
+        if(c) putc(c);
+    }
 
     return 0;
 }
