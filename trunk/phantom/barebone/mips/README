@@ -1,0 +1,38 @@
+
+README 
+------
+
+Jun Sun
+10/16/2001
+
+What is it?
+
+A generic stand-alone MIPS program that can do printf on a standard UART.
+
+requirements:
+
+. CPU has CP0 structure (r4k compatible)
+
+Configure:
+
+. By default, the program is downloaded to 0xa0040000 and use a stack downward
+  from 0xa0100000 (1MB).  If you want to change this change it in the 
+  Makefile
+
+. By default, the program turns off cache in kernel mode (CP0_CONFIG).
+
+. Change uart16550.c file to use the right parameters for the serial port.
+
+. Make sure you have the right prefix for cross tools
+
+Make:
+
+. 'make elf' - make barebone.elf, an ELF image
+. 'make srec'  - S-record image
+. 'make bin'  - binary image
+. 'make' - make all three iamges
+. 'make clean'
+
+Test:
+
+You can link with test.c file and do some uart and printf testing.
