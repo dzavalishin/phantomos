@@ -36,3 +36,5 @@ Make:
 Test:
 
 You can link with test.c file and do some uart and printf testing.
+
+//OUTPUT_FORMAT("elf32-tradlittlemips")

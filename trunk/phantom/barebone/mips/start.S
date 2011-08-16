@@ -15,30 +15,63 @@
 
 LEAF(_start)
 	
-	.set	mips2
-	.set	reorder
+//    .set	mips2
+//    .set	reorder
+	.set	noreorder
+	.set	mips32
 
-	/* Disable interrupts */
-	mtc0	zero, CP0_STATUS
+    /* Disable interrupts */
+    mtc0	zero, CP0_STATUS
 
-        /* Disable watch exception. */
-        mtc0    zero, CP0_WATCHLO
-        mtc0    zero, CP0_WATCHHI
+    /* Disable watch exception. */
+    mtc0    zero, CP0_WATCHLO
+    mtc0    zero, CP0_WATCHHI
 
-	/* disable kernel mode cache */
-	mfc0	t0, CP0_CONFIG
-	and	t0, ~0x7
-	ori	t0, 0x2
-	mtc0	t0, CP0_CONFIG
+#if 0
+    /* disable kernel mode cache */
+    mfc0	t0, CP0_CONFIG
+    and	t0, ~0x7
+    ori	t0, 0x2
+    mtc0	t0, CP0_CONFIG
+#endif
+    /* set up stack */
+    li	sp, 0x0000000 + RAMSIZE - 16
 
-	/* set up stack */
-	li	sp, 0xa0000000 + RAMSIZE - 16
+ 	lui	v0,0xB400
+ 	ori	v0,v0,0x3f8
+ 	li	v1,104
+ 	sb	v1,0(v0)
+ 	li	v1,101
+ 	sb	v1,0(v0)
+ 	li	v1,108
+ 	sb	v1,0(v0)
+ 	sb	v1,0(v0)
+ 	li	v1,111
+ 	sb	v1,0(v0)
+ 	li	v1,33
+ 	sb	v1,0(v0)
+ 	li	v1,10
+ 	sb	v1,0(v0)
+ 	li	v1,13
+ 	sb	v1,0(v0)
+
 	
-	/* jump to main */
-	jal	main
-			
+    /* jump to main */
+    jal	main
+    nop
+
 loop:
-	j	loop
-	nop
+    j	loop
+    nop
 END(_start)
+
+
+// pagemask (cp0 r5) = 0 -> 4Kb page
+// wired (cp0 r6) = 24 (half of TLB is wired)?
+
+// get pr id = (cp0 r15)
+
+// TODO cp0 r16 config
+
+
 

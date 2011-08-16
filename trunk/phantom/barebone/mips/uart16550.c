@@ -14,9 +14,9 @@
 
 /* === CONFIG === */
 
-#define         BASE                    0xb0000080
+#define         BASE                    (0x3f8+0x14000000)
 #define         MAX_BAUD                1152000
-#define		REG_OFFSET		4
+#define         REG_OFFSET              4
 
 /* === END OF CONFIG === */
 
