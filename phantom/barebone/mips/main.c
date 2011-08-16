@@ -9,12 +9,39 @@
  *
  */
 
-#include "printf.h"
+//#include "printf.h"
 
-main()
+void uart_test();
+
+
+//#define ISA 0x1fd00000
+#define ISA 0x14000000
+
+//char *uart_data = (0x3f8+ISA);
+
+int main()
 {
-	printf("\n");
-	printf("(main) Hello, world!\n");
-	printf("loop forever ...\n");
+    unsigned a = 0xA000000u;
+    a |= ISA;
+    a |= 0x3f8;
+
+    a = 0xB40003f8u;
+
+	volatile char *uart_data = (void *)a;
+
+	*uart_data = 'm';
+	*uart_data = 'a';
+	*uart_data = 'i';
+	*uart_data = 'n';
+	*uart_data = '!';
+	*uart_data = '!';
+	*uart_data = '\n';
+	*uart_data = '\r';
+
+    //uart_test();
+
+	//printf("\n");
+	//printf("(main) Hello, world!\n");
+	//printf("loop forever ...\n");
 	for(;;);
 }

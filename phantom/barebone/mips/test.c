@@ -14,14 +14,14 @@
 // #define DEBUG_LED (*(unsigned char*)(0xb9010000))
 int DEBUG_LED;
 #include "uart16550.h"
-#include "printf.h"
+//#include "printf.h"
 
 void uart_test()
 {
     int diff = 'A' - 'a';
 
     DEBUG_LED  = 0x11;
-#if 0
+#if 1
     Uart16550Init(9600, 
                   UART16550_DATA_8BIT,
                   UART16550_PARITY_NONE,
@@ -51,6 +51,7 @@ void uart_test()
     } 
 }
 
+/*
 void printf_test()
 {
     printf("hello through printf!\n");
@@ -59,3 +60,5 @@ void printf_test()
     printf("test binary: %b\n", 555);
     printf("test hex: %08x\n", 555);
 }
+
+*/
