@@ -27,7 +27,7 @@ LEAF(_start)
     mtc0    zero, CP0_WATCHLO
     mtc0    zero, CP0_WATCHHI
 
-#if 0
+#if 1
     /* disable kernel mode cache */
     mfc0	t0, CP0_CONFIG
     and	t0, ~0x7
